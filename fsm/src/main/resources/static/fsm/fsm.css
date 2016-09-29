@@ -1,0 +1,187 @@
+svg {
+  background-color: #FFF;
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+svg:not(.active):not(.ctrl) {
+  cursor: crosshair;
+}
+
+path.link {
+  fill: none;
+  stroke: #000;
+  stroke-width: 4px;
+  cursor: default;
+}
+
+svg:not(.active):not(.ctrl) path.link {
+  cursor: pointer;
+}
+
+path.link.selected {
+  stroke-dasharray: 10,2;
+}
+
+path.link.dragline {
+  pointer-events: none;
+}
+
+path.link.hidden {
+  stroke-width: 0;
+}
+
+circle.node {
+  stroke-width: 1.5px;
+  cursor: pointer;
+}
+
+circle.node.reflexive {
+  stroke: #000 !important;
+  stroke-width: 2.5px;
+}
+
+text {
+  font: 12px sans-serif;
+  pointer-events: none;
+}
+
+text.id {
+  text-anchor: middle;
+  font-weight: bold;
+}
+.topics tr { line-height: 14px; }
+
+table.clickable td {
+    cursor: default;
+}
+td:hover {
+  background-color: #99eeee;
+  color: #000000;
+}
+.fixedwidth1 {
+width:50px;
+display:inline-block;
+}
+.fixedwidth2 {
+width:25px;
+display:inline-block;
+}
+
+
+.fullwidth {
+width:100%;
+margin-left:0;
+margin-right:0;
+padding-left:0;
+padding-right:0;
+display:block;
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+
+#fsmTables{
+	line-height:30px;
+    background-color:#eeeeee;
+
+    float:left;
+    padding:5px; 
+}
+
+#svgDiv{
+	line-height:30px;
+    background-color:#eeeeee;
+    float:left;
+    height:100%;
+    display:block;
+}
+
+    td {
+      border-bottom: 1px solid #ccc;
+      padding: 5px;
+      text-align: left; 
+    }
+    td + td {
+      border-left: 1px solid #ccc;
+    }
+    th {
+      text-align: left; 
+      padding: 0 5px;
+    }
+
+
+    .fixed-div{
+      width: 100%;
+      height: 200px;
+      border: 1px solid black;
+      margin: 5px auto;
+      background-color: white;
+      position: relative; 
+      padding-top: 30px; 
+    }
+
+    .fixed-div-inner {
+      overflow-x: hidden;
+      overflow-y: auto;
+      height: 100%;
+    }
+     
+    .header-background {
+	  border-bottom: 1px solid black;
+
+      background-color: #E0EEFF;
+      height: 30px; 
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+    }
+    
+.st-tr {
+	height: 20px; line-height: 0px
+}	
+.st-t{
+border-collapse: collapse;
+}
+
+.st-td{
+	padding: 0px;
+}
+    table {
+      background-color: white;
+      width: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .th-inner {
+      position: absolute;
+      top: 0;
+      line-height: 30px; 
+      text-align: left;
+      border-left: 1px solid black;
+      padding-left: 5px;
+      margin-left: -5px;
+    }
+    .first .th-inner {
+        border-left: none;
+        padding-left: 6px;
+      }
+				
+		
+		.extrawrap th {
+			text-align: center;
+		}
+		
+		.extra-wrap {
+			width: 100%;
+		}
+	

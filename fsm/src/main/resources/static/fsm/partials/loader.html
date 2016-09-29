@@ -1,0 +1,24 @@
+
+<div class="container-fluid">
+	<div>
+		<h1>{{fsmMessage}}</h1>
+		
+		<div>
+			<button ng-click="createFSM()">Create FSM</button>
+			<input id="mid" type="text" name="input" title="Give a name to the FSM"
+				ng-model="machineName">
+		</div>
+		
+				
+		<div>
+			<button ng-click="listFSM()" title="List existing FSMs">Load FSM</button>
+			<ul style="list-style-type: none" ng-repeat="value in machineNames">
+				<li ng-click="selectFSM(value.machineName)" title="Load this FSM">[{{$index +
+					1}}] {{value.machineName}}</li>
+			</ul>
+		</div>
+
+
+
+	</div>
+</div>

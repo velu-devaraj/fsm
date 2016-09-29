@@ -1,0 +1,104 @@
+<div>
+	<h2>State Transitions</h2>
+	<div>
+		<label>{{fsmMessage}}</label>	
+	</div>
+
+	<div id="fsmTables">
+	<div>
+		<button  class="fullwidth" display="block" ng-click="addState()" title="Add a new State">Add State</button>
+		<input   class="fixedwidth1"  id="mid" type="text" name="input" ng-model="stateToAdd" title="Name the state">
+		<label>start state<input   ng-model="startState" class="fixedwidth2"  id="mid" type="checkbox" name="startStateChk" value="start state" title="Is it a start state?"></label>
+		<label>end state<input   ng-model="endState" class="fixedwidth2"  id="mid" type="checkbox" name="endStateChk"  value="end state"  title="Is it an accepting state?"></label>
+	</div>
+	<div>
+		<!--  button ng-click="addTransition()" ng-class="{on:b.addToggle}">Add Transition</button -->
+		<button   class="fullwidth"  ng-click="addTransition()" title="click on 2 states and a symbol">Add Transition</button>
+	</div>
+	
+	
+	
+    <div class="fixed-div">
+      <div class="header-background"> </div>
+      <div class="fixed-div-inner">
+		<table cellspacing="0" >
+			<thead>
+				<tr>
+					<th class="first"> <div class="th-inner">#</div></th>
+					<th> <div class="th-inner">From</div> </th>
+					<th> <div class="th-inner">Symbol</div> </th>
+					<th> <div class="th-inner">To  </div> </th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="state in fsm.allStates  track by $index"  ng-style="stateColor($index)" >
+					<td ng-click="toggle($event)" ng-model="s"}>{{$index}}</td>
+					<td ng-click="stateClicked($index)"><label>{{state.state}}</label></td>
+					<td class="st-td">
+						<table class="st-t" >
+							<tbody>
+								<tr class="st-tr" ng-repeat="transition in state.nodeTransitions"   ng-style="stateColor($parent.$index)">
+									<td>{{fsm.allSymbols[transition.inputSymbol].symbol}}</td>
+								</tr>
+							</tbody>
+						</table>
+					    
+					</td>
+					<td class="st-td">
+					  <span  ng-show='state.nodeTransitions != null && state.nodeTransitions.length > 0'>
+					
+						<table  class="st-t">
+							<tbody>
+								<tr class="st-tr"  ng-repeat="transition in state.nodeTransitions"   ng-style="stateColor($parent.$index)">
+									<td>{{fsm.allStates[transition.toState].state}}</td>
+								</tr>
+							</tbody>
+						</table>
+						
+						 </span>
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+      </div>
+    </div>
+
+		<h2>Symbols</h1>
+
+		<div>
+			<button ng-click="addSymbol()" title="add a new symbol to FSM">Add a Symbol</button>
+			<input id="sym" type="text" name="input" ng-model="symbolToAdd" title="name of symbol to add">
+		</div>
+
+		<table cellspacing="0"   class="st-t">
+
+			<tbody>
+				<tr class="st-tr"  ng-repeat="row in symbolsInRows track by $index" >
+					<td  ng-click="symbolClicked($index*5+0)" title="click to input symbol">{{row[0]}}</td>
+					<td  ng-click="symbolClicked($index*5+1)" title="click to input symbol">{{row[1]}}</td>
+					<td  ng-click="symbolClicked($index*5+2)" title="click to input symbol">{{row[2]}}</td>
+					<td  ng-click="symbolClicked($index*5+3)" title="click to input symbol">{{row[3]}}</td>
+					<td  ng-click="symbolClicked($index*5+4)" title="click to input symbol">{{row[4]}}</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<div>
+			<button ng-click="testFeed()" title="click symbols above or type space separated symbols below and test ">Test acceptance</button>
+		</div>		 
+		<div>
+		<textarea  ng-model="inputSymbolFeed"   title="type space separated symbols and test" >
+			
+		</textarea>
+		</div>
+		
+	</div>
+	
+	
+	<div id="svgDiv">
+	
+	
+	</div>
+</div>
+

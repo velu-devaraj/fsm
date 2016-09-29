@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://fsm.abstractmachines.org/types"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+	xmlns:jxb="http://java.sun.com/xml/ns/jaxb" jxb:version="1.0"
+	xmlns="http://fsm.abstractmachines.org/types" xmlns:tns="http://fsm.abstractmachines.org/types" elementFormDefault="qualified">
+
+	<xs:complexType name="FSMState">
+		<xs:sequence>
+			<xs:element name="state" type="xs:string" />
+			<xs:element name="nodeTransitions" type="FSMTransition"
+				minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:appinfo xml:space="default">
+						<jxb:property>
+							<jxb:javadoc>An array of transitions. An index "i" into the
+								transitions provides a list of possible transitions for state
+								"i" </jxb:javadoc>
+						</jxb:property>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>			
+		</xs:sequence>
+		
+		<xs:attribute name="stateType" type="xs:string" />
+	
+	</xs:complexType>
+	
+	<xs:complexType name="Symbol">
+		<xs:sequence>
+			<xs:element name="symbol" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>	
+	
+	<xs:complexType name="FSMTransition">
+		<xs:annotation>
+			<xs:documentation xml:space="default">
+				Holds one transition from a specific state for a specified input
+				symbol.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+
+			<xs:element name="toState" type="xs:long" minOccurs="1"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo xml:space="default">
+						<jxb:property>
+							<jxb:javadoc>State to which a transition occurs. An index into
+								the state list</jxb:javadoc>
+						</jxb:property>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="inputSymbol" type="xs:long"
+				minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo xml:space="default">
+						<jxb:property>
+							<jxb:javadoc>input symbol which causes a transition. An index
+								into input symbols list</jxb:javadoc>
+						</jxb:property>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+
+
+		</xs:sequence>
+	
+	</xs:complexType>
+
+	<xs:complexType name="FiniteStateMachine">
+		<xs:annotation>
+			<xs:documentation xml:space="default">
+				A Finite State Machine
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" minOccurs="1" 	maxOccurs="1" />
+
+			<xs:element name="allStates" type="FSMState" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="allSymbols" type="Symbol" minOccurs="0" maxOccurs="unbounded" />
+				
+		</xs:sequence>
+	</xs:complexType>
+	
+	
+    <xs:element name="getMachineTypeResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="machineType" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+
+
+    <xs:element name="listMachineNamesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="machineNames" type="xs:string" minOccurs="0"
+					maxOccurs="unbounded" />
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+
+    <xs:element name="getFSMRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="name" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+    <xs:element name="getFSMResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="fsm" type="tns:FiniteStateMachine" minOccurs="1"
+					maxOccurs="1" />
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+    <xs:element name="addStateRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="machineName" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="stateName" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="startState" type="xs:boolean" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="endState" type="xs:boolean" minOccurs="1"
+					maxOccurs="1" />
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+    <xs:element name="addStateResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="stateID" type="xs:long" minOccurs="1"
+					maxOccurs="1" />
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+		
+    <xs:element name="addTransitionRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="machineName" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="sourceState" type="xs:long" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="targetState" type="xs:long" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="inputSymbol" type="xs:long" minOccurs="1"
+					maxOccurs="1" />
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	
+	
+    <xs:element name="addTransitionResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="transitionID" type="xs:long" minOccurs="1"
+					maxOccurs="1" />
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	
+    <xs:element name="addSymbolRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="machineName" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="symbolName" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+    <xs:element name="addSymbolResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="symbolIndex" type="xs:int" minOccurs="1"
+					maxOccurs="1" />
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+    <xs:element name="createFSMRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="fsm" type="tns:FiniteStateMachine" minOccurs="1"
+					maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	
+	
+    <xs:element name="createFSMResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="success" type="xs:boolean" minOccurs="1"
+					maxOccurs="1" />
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+		
+		
+    <xs:element name="getStateForStateRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="machineName" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	
+	
+    <xs:element name="getStateForStateResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="state" type="tns:FSMState" minOccurs="1"
+					maxOccurs="1" />
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="getStatePosForNameRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="machineName" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="stateName" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	
+	
+    <xs:element name="getStatePosForNameResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="position" type="xs:long" minOccurs="1"
+					maxOccurs="1" />
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="getTargetStateRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="machineName" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="inputSymbol" type="xs:long" minOccurs="1"
+					maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	
+	
+    <xs:element name="getTargetStateResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="stateID" type="xs:long" minOccurs="1"
+					maxOccurs="1" />
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	
+	
+	<xs:element name="getTargetStateForStateRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="machineName" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="inputSymbol" type="xs:long" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="fromState" type="xs:long" minOccurs="1"
+					maxOccurs="1" />					
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	
+	
+    <xs:element name="getTargetStateForStateResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="stateID" type="xs:long" minOccurs="1"
+					maxOccurs="1" />
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+		
+</xs:schema>
+
